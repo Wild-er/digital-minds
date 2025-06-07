@@ -1,0 +1,249 @@
+/* General Body Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+header {
+    background-color: #ffffff;
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.logo img {
+    height: 50px; /* Adjust as needed */
+    width: auto;
+}
+
+.nav-buttons button {
+    background-color: #007bff; /* Primary button color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.nav-buttons button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.hero {
+    text-align: center;
+    padding: 2rem 1rem;
+    background-color: #e9ecef; /* Light grey background for hero */
+}
+
+.hero h1 {
+    color: #343a40; /* Darker text for heading */
+    margin-bottom: 0.5rem;
+}
+
+.hero p {
+    color: #6c757d; /* Softer text color for paragraph */
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.hero img {
+    width: 100%;
+    max-height: 350px; /* Adjust as needed */
+    object-fit: cover; /* Ensures the image covers the area nicely */
+    border-radius: 8px; /* Optional: adds rounded corners */
+    margin-top: 1rem;
+}
+
+/* Main Content Sections */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+section {
+    background-color: white;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+section h2 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Learning Platform Guide Styles */
+.platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.platform-item {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.platform-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.platform-item img.placeholder-logo {
+    width: 80px; /* Placeholder for platform logos */
+    height: 80px;
+    background-color: #e0e0e0; /* Grey background for placeholder */
+    border-radius: 50%; /* Circular placeholder */
+    margin-bottom: 1rem;
+    display: inline-block;
+    border: 2px dashed #ccc; /* Dashed border for placeholder */
+}
+
+.platform-item h3 {
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.platform-item p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.platform-item a.platform-link {
+    display: inline-block;
+    background-color: #28a745; /* Green color for links */
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.platform-item a.platform-link:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Testimonials Section Styles */
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.testimonial-item {
+    background-color: #e9f7fd; /* Light blue background for testimonials */
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid #007bff; /* Accent line */
+}
+
+.testimonial-item p.quote {
+    font-style: italic;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.testimonial-item p.author {
+    font-weight: bold;
+    text-align: right;
+    color: #0056b3;
+}
+
+.testimonial-item .placeholder-avatar {
+    width: 60px;
+    height: 60px;
+    background-color: #ced4da;
+    border-radius: 50%;
+    margin-right: 15px;
+    float: left; /* Simple layout for avatar */
+    border: 2px dashed #adb5bd; /* Dashed border for placeholder */
+}
+
+
+/* Footer Styles */
+footer {
+    background-color: #343a40; /* Dark footer */
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.footer-social img {
+    width: 30px; /* Adjust as needed */
+    height: 30px;
+    margin: 0 10px;
+    transition: opacity 0.3s ease;
+}
+
+.footer-social img:hover {
+    opacity: 0.8;
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+    }
+
+    .nav-buttons {
+        margin-top: 1rem;
+    }
+
+    .nav-buttons button {
+        margin: 5px;
+        width: calc(33% - 10px); /* Adjust button width for smaller screens */
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .platform-grid, .testimonial-grid {
+        grid-template-columns: 1fr; /* Stack items on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-buttons button {
+        width: 100%; /* Full width buttons on very small screens */
+        margin-bottom: 10px;
+    }
+
+    .logo img {
+        height: 40px; /* Smaller logo */
+    }
+
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+}
