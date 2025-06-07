@@ -11,13 +11,68 @@
         #learning-nexus-animation .relative { perspective: 800px; transform-style: preserve-3d; }
         .nucleus { position: absolute; top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0px); animation: float 4s ease-in-out infinite; }
         @keyframes float { 0%, 100% { transform: translate3d(-50%, -50%, 0px) translateY(0px); } 50% { transform: translate3d(-50%, -50%, 0px) translateY(-20px); } }
-        .electron { position: absolute; top: 50%; left: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transform-style: preserve-3d; }
-        .electron1 { animation: orbit1 12s linear infinite 0s;   } @keyframes orbit1 { 0%   { transform: translate3d(-50%, -50%, 0) rotateZ(0deg)   translateX(90px) translateZ(5px)  rotateZ(0deg); } 100% { transform: translate3d(-50%, -50%, 0) rotateZ(360deg) translateX(90px) translateZ(5px)  rotateZ(-360deg); } }
-        .electron2 { animation: orbit2 12s linear infinite 2s;   } @keyframes orbit2 { 0%   { transform: translate3d(-50%, -50%, 0) rotateY(0deg)   translateX(100px) translateZ(15px) rotateY(0deg); } 100% { transform: translate3d(-50%, -50%, 0) rotateY(360deg) translateX(100px) translateZ(15px) rotateY(-360deg); } }
-        .electron3 { animation: orbit3 12s linear infinite 4s;   } @keyframes orbit3 { 0%   { transform: translate3d(-50%, -50%, 0) rotateX(0deg)   translateX(110px) translateZ(25px) rotateX(0deg); } 50%  { transform: translate3d(-50%, -50%, 0) rotateX(180deg) translateX(110px) translateZ(-25px) rotateX(-180deg); } 100% { transform: translate3d(-50%, -50%, 0) rotateX(360deg) translateX(110px) translateZ(25px) rotateX(-360deg); } }
-        .electron4 { animation: orbit4 12s linear infinite 6s;   } @keyframes orbit4 { 0%   { transform: translate3d(-50%, -50%, 0) rotateX(45deg) rotateY(0deg)   translateX(100px) translateZ(10px) rotateY(0deg); } 100% { transform: translate3d(-50%, -50%, 0) rotateX(45deg) rotateY(360deg) translateX(100px) translateZ(10px) rotateY(-360deg); } }
-        .electron5 { animation: orbit5 12s linear infinite 8s;   } @keyframes orbit5 { 0%   { transform: translate3d(-50%, -50%, 0) rotateY(45deg) rotateX(0deg)   translateX(90px) translateZ(-10px) rotateX(0deg); } 100% { transform: translate3d(-50%, -50%, 0) rotateY(45deg) rotateX(360deg) translateX(90px) translateZ(-10px) rotateX(-360deg); } }
-        .electron6 { animation: orbit6 12s linear infinite 10s;  } @keyframes orbit6 { 0%   { transform: translate3d(-50%, -50%, 0) rotateX(-45deg) rotateY(0deg)   translateX(120px) translateZ(20px) rotateY(0deg); } 50%  { transform: translate3d(-50%, -50%, 0) rotateX(-45deg) rotateY(180deg) translateX(120px) translateZ(-20px) rotateY(-180deg); } 100% { transform: translate3d(-50%, -50%, 0) rotateX(-45deg) rotateY(360deg) translateX(120px) translateZ(20px) rotateY(-360deg); } }
+        .electron {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px; /* Will be overridden by responsive text size on emoji parent */
+            height: 40px; /* Will be overridden by responsive text size on emoji parent */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-style: preserve-3d;
+            opacity: 0; /* Base opacity for fade-in */
+        }
+
+        /* Orbit 1 (💡): Flat orbit on XY plane (around Z axis), slight Z offset */
+        .electron1 { animation: orbit1 12s linear infinite 0s;   }
+        @keyframes orbit1 {
+            0%   { opacity: 0; transform: translate3d(-50%, -50%, 0) rotateZ(0deg)   translateX(90px) translateZ(5px)  rotateZ(0deg); }
+            5%   { opacity: 1; } /* Fade in complete */
+            100% { opacity: 1; transform: translate3d(-50%, -50%, 0) rotateZ(360deg) translateX(90px) translateZ(5px)  rotateZ(-360deg); }
+        }
+
+        /* Orbit 2 (✨): Orbit on XZ plane (around Y axis), different Z offset */
+        .electron2 { animation: orbit2 12s linear infinite 2s;   }
+        @keyframes orbit2 {
+            0%   { opacity: 0; transform: translate3d(-50%, -50%, 0) rotateY(0deg)   translateX(100px) translateZ(15px) rotateY(0deg); }
+            5%   { opacity: 1; }
+            100% { opacity: 1; transform: translate3d(-50%, -50%, 0) rotateY(360deg) translateX(100px) translateZ(15px) rotateY(-360deg); }
+        }
+
+        /* Orbit 3 (📚 - Books): Orbit on YZ plane (around X axis), variable Z */
+        .electron3 { animation: orbit3 12s linear infinite 4s;   }
+        @keyframes orbit3 { /* Corrected for YZ plane orbit (rotation around X-axis) */
+            0%   { opacity: 0; transform: translate3d(-50%, -50%, 0) rotateX(0deg)   translateY(110px) translateZ(25px) rotateX(0deg); } /* Orbiting in YZ, so push along Y */
+            5%   { opacity: 1; }
+            50%  { opacity: 1; transform: translate3d(-50%, -50%, 0) rotateX(180deg) translateY(110px) translateZ(-25px) rotateX(-180deg); }
+            100% { opacity: 1; transform: translate3d(-50%, -50%, 0) rotateX(360deg) translateY(110px) translateZ(25px) rotateX(-360deg); }
+        }
+
+        /* Orbit 4 (⚙️ - Gear): Orbit tilted 45deg around X, then orbiting around its new Y' */
+        .electron4 { animation: orbit4 12s linear infinite 6s;   }
+        @keyframes orbit4 {
+            0%   { opacity: 0; transform: translate3d(-50%, -50%, 0) rotateX(45deg) rotateY(0deg)   translateX(100px) translateZ(10px) rotateY(0deg); }
+            5%   { opacity: 1; }
+            100% { opacity: 1; transform: translate3d(-50%, -50%, 0) rotateX(45deg) rotateY(360deg) translateX(100px) translateZ(10px) rotateY(-360deg); }
+        }
+
+        /* Orbit 5 (🧪 - Test Tube): Orbit tilted 45deg around Y, then orbiting around its new X' */
+        .electron5 { animation: orbit5 12s linear infinite 8s;   }
+        @keyframes orbit5 { /* Corrected for X' orbit after Y tilt */
+            0%   { opacity: 0; transform: translate3d(-50%, -50%, 0) rotateY(45deg) rotateX(0deg)   translateY(90px) translateZ(-10px) rotateX(0deg); } /* Push along new Y if orbiting new X */
+            5%   { opacity: 1; }
+            100% { opacity: 1; transform: translate3d(-50%, -50%, 0) rotateY(45deg) rotateX(360deg) translateY(90px) translateZ(-10px) rotateX(-360deg); }
+        }
+
+        /* Orbit 6 (🌠 - Shooting Star): Orbit tilted -45deg around X, then orbiting around Y', variable Z */
+        .electron6 { animation: orbit6 12s linear infinite 10s;  }
+        @keyframes orbit6 {
+            0%   { opacity: 0; transform: translate3d(-50%, -50%, 0) rotateX(-45deg) rotateY(0deg)   translateX(120px) translateZ(20px) rotateY(0deg); }
+            5%   { opacity: 1; }
+            50%  { opacity: 1; transform: translate3d(-50%, -50%, 0) rotateX(-45deg) rotateY(180deg) translateX(120px) translateZ(-20px) rotateY(-180deg); }
+            100% { opacity: 1; transform: translate3d(-50%, -50%, 0) rotateX(-45deg) rotateY(360deg) translateX(120px) translateZ(20px) rotateY(-360deg); }
+        }
         html:not(.dark) #theme-toggle-dark-icon { display: none; } html.dark #theme-toggle-light-icon { display: none; }
         html:not(.dark) #theme-toggle-light-icon { display: inline; } html.dark #theme-toggle-dark-icon { display: inline; }
     </style>
@@ -43,22 +98,23 @@
     </header>
 
     <!-- New Hero Section (Animation) -->
-    <section id="learning-nexus-animation" class="w-full bg-gray-100 dark:bg-gray-900 flex flex-col items-center justify-center text-center py-12 sm:py-16 md:py-20 px-4 overflow-hidden">
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-200 mb-3 sm:mb-4">The Learning Nexus</h2>
-        <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-8 sm:mb-10 md:mb-12 max-w-md sm:max-w-lg md:max-w-xl mx-auto">Explore the interconnected world of knowledge, where ideas orbit and discoveries await.</p>
-        <div class="relative w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80"> <!-- Responsive animation container -->
-            <div class="nucleus absolute text-5xl sm:text-6xl md:text-7xl">⚛️</div>
-            <div class="electron electron1 absolute text-xl sm:text-2xl md:text-3xl">💡</div>
-            <div class="electron electron2 absolute text-xl sm:text-2xl md:text-3xl">✨</div>
-            <div class="electron electron3 absolute text-xl sm:text-2xl md:text-3xl">📚</div>
-            <div class="electron electron4 absolute text-xl sm:text-2xl md:text-3xl">⚙️</div>
-            <div class="electron electron5 absolute text-xl sm:text-2xl md:text-3xl">🧪</div>
-            <div class="electron electron6 absolute text-xl sm:text-2xl md:text-3xl">🌠</div>
+    <section id="learning-nexus-animation" class="w-full bg-gray-100 dark:bg-gray-900 flex flex-col items-center justify-center text-center px-4 py-6 sm:py-8 overflow-hidden mb-6 sm:mb-8"> {/* Reduced py- and added mb- */}
+        <h2 class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">The Learning Nexus</h2> {/* Reduced text size and mb- */}
+        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6 max-w-xs sm:max-w-sm md:max-w-md mx-auto">Explore the interconnected world of knowledge.</p> {/* Reduced text size, mb-, and max-w- */}
+        <div class="relative w-40 h-40 sm:w-48 sm:h-48 md:w-52 md:h-52"> {/* Reduced animation container size, md slightly smaller than before */}
+            {/* Nucleus and electron HTML remains the same inside this div */}
+            <div class="nucleus absolute text-4xl sm:text-5xl md:text-6xl">⚛️</div>
+            <div class="electron electron1 absolute text-lg sm:text-xl md:text-2xl">💡</div>
+            <div class="electron electron2 absolute text-lg sm:text-xl md:text-2xl">✨</div>
+            <div class="electron electron3 absolute text-lg sm:text-xl md:text-2xl">📚</div>
+            <div class="electron electron4 absolute text-lg sm:text-xl md:text-2xl">⚙️</div>
+            <div class="electron electron5 absolute text-lg sm:text-xl md:text-2xl">🧪</div>
+            <div class="electron electron6 absolute text-lg sm:text-xl md:text-2xl">🌠</div>
         </div>
     </section>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8 sm:py-10 md:py-12">
+    <main class="container mx-auto px-4 pt-4 sm:pt-6 md:pt-8 pb-8 sm:pb-10 md:pb-12"> {/* Reduced pt- values */}
 
         <!-- Learning Platform Guide Section -->
         <section id="learning-platform-guide" class="mb-10 sm:mb-12 md:mb-16">
