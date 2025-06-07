@@ -4,106 +4,185 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Minds Group - Gateway to Learning</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .nucleus {
+            /* Center the nucleus emoji */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+            50% { transform: translate(-50%, -50%) translateY(-20px); }
+        }
+
+        .electron {
+            /* Common styling for electrons */
+            position: absolute;
+            /* Centering electrons initially if their direct parent is the .relative container */
+            top: 50%;
+            left: 50%;
+            transform-origin: center center; /* Set transform origin for rotation */
+            width: 40px; /* Adjust size as needed */
+            height: 40px; /* Adjust size as needed */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Electron 1: Orbit properties */
+        .electron1 {
+            animation: orbit1 10s linear infinite;
+        }
+        @keyframes orbit1 {
+            0% { transform: translate(-50%, -50%) rotate(0deg) translateX(80px) rotate(0deg); } /* Adjust 80px for orbit radius */
+            100% { transform: translate(-50%, -50%) rotate(360deg) translateX(80px) rotate(-360deg); }
+        }
+
+        /* Electron 2: Orbit properties */
+        .electron2 {
+            animation: orbit2 12s linear infinite 0.5s; /* Different duration and delay */
+        }
+        @keyframes orbit2 {
+            0% { transform: translate(-50%, -50%) rotate(0deg) translateX(100px) rotate(0deg); } /* Adjust 100px for orbit radius */
+            100% { transform: translate(-50%, -50%) rotate(360deg) translateX(100px) rotate(-360deg); }
+        }
+
+        /* Electron 3: Orbit properties */
+        .electron3 {
+            animation: orbit3 8s linear infinite 1s; /* Different duration and delay */
+        }
+        @keyframes orbit3 {
+            0% { transform: translate(-50%, -50%) rotate(0deg) translateX(120px) rotate(0deg); } /* Adjust 120px for orbit radius */
+            100% { transform: translate(-50%, -50%) rotate(360deg) translateX(120px) rotate(-360deg); }
+        }
+
+        /* Ensure the animation container clips if electrons go too wild, though orbit should keep them contained */
+        #learning-nexus-animation .relative {
+            /* overflow: hidden; /* Uncomment if needed, but might clip desired visual */
+        }
+    </style>
     <script>
         function scrollToSection(sectionId) {
             document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans">
+<body class="bg-gray-100 text-gray-800 font-sans dark:bg-gray-900 dark:text-gray-200">
 
     <!-- Header -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
+    <header class="bg-white shadow-md sticky top-0 z-50 dark:bg-gray-800">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-3xl font-bold text-blue-600">
+            <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">
                 <a href="index.html">🧠 Digital Minds</a>
             </div>
-            <div class="space-x-2">
-                <button onclick="scrollToSection('learning-platform-guide')" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-0.5">Discover</button>
-                <button onclick="scrollToSection('learning-platform-guide')" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-0.5">Learn</button>
-                <a href="testimonials.html" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-0.5">Grow</a>
+            <div class="flex items-center space-x-2">
+                <button onclick="scrollToSection('learning-platform-guide')" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-0.5 dark:bg-blue-600 dark:hover:bg-blue-800">Discover</button>
+                <button onclick="scrollToSection('learning-platform-guide')" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-0.5 dark:bg-blue-600 dark:hover:bg-blue-800">Learn</button>
+                <a href="testimonials.html" class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-0.5 dark:bg-green-600 dark:hover:bg-green-800">Grow</a>
+
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" type="button" class="ml-4 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+                    <span id="theme-toggle-dark-icon" class="hidden">🌙</span> <!-- Moon icon -->
+                    <span id="theme-toggle-light-icon" class="hidden">☀️</span> <!-- Sun icon -->
+                </button>
             </div>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-center py-16 md:py-24 px-6">
+    <section class="hero bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-center py-16 md:py-24 px-6 dark:from-blue-700 dark:to-indigo-800">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">Welcome to Your Gateway to Free Learning</h1>
-        <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">Unlock your potential with curated access to the world's best free educational resources.</p>
+        <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto dark:text-gray-300">Unlock your potential with curated access to the world's best free educational resources.</p>
         <div class="text-6xl mb-8">📚✨</div>
-        <!-- Removed img placeholder for hero banner, using emoji above -->
     </section>
 
     <!-- Main Content -->
     <main class="container mx-auto px-6 py-12">
 
+        <!-- CSS Animation Section -->
+        <section id="learning-nexus-animation" class="my-16 flex flex-col items-center justify-center text-center p-8 overflow-hidden">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-700 dark:text-gray-300 mb-2">The Learning Nexus</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-12">Exploring the core of knowledge.</p>
+            <div class="relative w-64 h-64"> <!-- Animation container -->
+                <!-- Nucleus -->
+                <div class="nucleus absolute text-6xl md:text-7xl">⚛️</div>
+                <!-- Electrons -->
+                <div class="electron electron1 absolute text-2xl md:text-3xl">💡</div>
+                <div class="electron electron2 absolute text-2xl md:text-3xl">✨</div>
+                <div class="electron electron3 absolute text-2xl md:text-3xl">📚</div>
+            </div>
+        </section>
+
         <!-- Learning Platform Guide Section -->
         <section id="learning-platform-guide" class="mb-16">
-            <h2 class="text-3xl font-bold text-center text-gray-700 mb-10">Learning Platform Guide</h2>
+            <h2 class="text-3xl font-bold text-center text-gray-700 mb-10 dark:text-gray-300">Learning Platform Guide</h2>
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Khan Academy -->
-                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition-shadow duration-300">
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition-shadow duration-300 dark:bg-gray-800 dark:hover:shadow-gray-700/50">
                     <div class="text-5xl mb-4">🎓</div>
-                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Khan Academy</h3>
-                    <p class="text-gray-600 mb-4 text-sm flex-grow">Offers practice exercises, instructional videos, and a personalized learning dashboard. Free for everyone, forever.</p>
-                    <a href="https://www.khanacademy.org/" target="_blank" class="mt-auto bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300">Visit Khan Academy</a>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2 dark:text-gray-200">Khan Academy</h3>
+                    <p class="text-gray-600 mb-4 text-sm flex-grow dark:text-gray-400">Offers practice exercises, instructional videos, and a personalized learning dashboard. Free for everyone, forever.</p>
+                    <a href="https://www.khanacademy.org/" target="_blank" class="mt-auto bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300 dark:bg-green-600 dark:hover:bg-green-700">Visit Khan Academy</a>
                 </div>
                 <!-- Udemy -->
-                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition-shadow duration-300">
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition-shadow duration-300 dark:bg-gray-800 dark:hover:shadow-gray-700/50">
                     <div class="text-5xl mb-4">💡</div>
-                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Udemy</h3>
-                    <p class="text-gray-600 mb-4 text-sm flex-grow">A global marketplace for learning and teaching online with a vast library of courses taught by expert instructors.</p>
-                    <a href="https://www.udemy.com/" target="_blank" class="mt-auto bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300">Visit Udemy</a>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2 dark:text-gray-200">Udemy</h3>
+                    <p class="text-gray-600 mb-4 text-sm flex-grow dark:text-gray-400">A global marketplace for learning and teaching online with a vast library of courses taught by expert instructors.</p>
+                    <a href="https://www.udemy.com/" target="_blank" class="mt-auto bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300 dark:bg-green-600 dark:hover:bg-green-700">Visit Udemy</a>
                 </div>
                 <!-- Coursera -->
-                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition-shadow duration-300">
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition-shadow duration-300 dark:bg-gray-800 dark:hover:shadow-gray-700/50">
                     <div class="text-5xl mb-4">🌐</div>
-                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Coursera</h3>
-                    <p class="text-gray-600 mb-4 text-sm flex-grow">Provides access to courses, Specializations, and degrees from top universities and institutions, including free options.</p>
-                    <a href="https://www.coursera.org/" target="_blank" class="mt-auto bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300">Visit Coursera</a>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2 dark:text-gray-200">Coursera</h3>
+                    <p class="text-gray-600 mb-4 text-sm flex-grow dark:text-gray-400">Provides access to courses, Specializations, and degrees from top universities and institutions, including free options.</p>
+                    <a href="https://www.coursera.org/" target="_blank" class="mt-auto bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300 dark:bg-green-600 dark:hover:bg-green-700">Visit Coursera</a>
                 </div>
             </div>
         </section>
 
         <!-- What Students Say Section (Testimonials on Index) -->
         <section id="testimonials" class="mb-16">
-            <h2 class="text-3xl font-bold text-center text-gray-700 mb-10">What Students Say</h2>
+            <h2 class="text-3xl font-bold text-center text-gray-700 mb-10 dark:text-gray-300">What Students Say</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-500">
+                <div class="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-500 dark:bg-gray-800 dark:border-blue-700">
                     <div class="flex items-center mb-3">
-                        <span class="text-3xl mr-3">🧑‍🎓</span>
-                        <p class="text-gray-600 italic">"These platforms opened up a new world of learning for me. I was able to gain valuable skills at my own pace, completely free!"</p>
+                        <span class="text-3xl mr-3">🧑‍🎓</span> <!-- Emoji -->
+                        <p class="text-gray-600 italic dark:text-gray-400">"These platforms opened up a new world of learning for me. I was able to gain valuable skills at my own pace, completely free!"</p>
                     </div>
-                    <p class="text-right text-blue-600 font-semibold">- Alex P.</p>
+                    <p class="text-right text-blue-600 font-semibold dark:text-blue-400">- Alex P.</p>
                 </div>
-                <div class="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-500">
+                <div class="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-500 dark:bg-gray-800 dark:border-blue-700">
                     <div class="flex items-center mb-3">
                         <span class="text-3xl mr-3">👩‍🏫</span>
-                        <p class="text-gray-600 italic">"As a lifelong learner, I appreciate having a curated list of high-quality educational resources. It saved me so much time searching!"</p>
+                        <p class="text-gray-600 italic dark:text-gray-400">"As a lifelong learner, I appreciate having a curated list of high-quality educational resources. It saved me so much time searching!"</p>
                     </div>
-                    <p class="text-right text-blue-600 font-semibold">- Maria S.</p>
+                    <p class="text-right text-blue-600 font-semibold dark:text-blue-400">- Maria S.</p>
                 </div>
-                <div class="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-500 md:col-span-2 lg:col-span-1">
+                <div class="bg-blue-50 p-6 rounded-lg shadow-md border-l-4 border-blue-500 md:col-span-2 lg:col-span-1 dark:bg-gray-800 dark:border-blue-700">
                     <div class="flex items-center mb-3">
                         <span class="text-3xl mr-3">👨‍💻</span>
-                        <p class="text-gray-600 italic">"I was skeptical about free courses, but the quality on platforms like Coursera and edX is amazing. Highly recommend!"</p>
+                        <p class="text-gray-600 italic dark:text-gray-400">"I was skeptical about free courses, but the quality on platforms like Coursera and edX is amazing. Highly recommend!"</p>
                     </div>
-                    <p class="text-right text-blue-600 font-semibold">- David K.</p>
+                    <p class="text-right text-blue-600 font-semibold dark:text-blue-400">- David K.</p>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 text-center py-10">
-        <p class="mb-4">&copy; 2023 Digital Minds Group. All Rights Reserved.</p>
+    <footer class="bg-gray-800 text-gray-300 text-center py-10 dark:bg-gray-900">
+        <p class="mb-4 dark:text-gray-400">&copy; 2023 Digital Minds Group. All Rights Reserved.</p>
         <div class="flex justify-center space-x-4">
-            <a href="#" class="hover:text-white text-2xl">🔗</a>
-            <a href="#" class="hover:text-white text-2xl">🔗</a>
-            <!-- Using generic link emoji for social icons -->
+            <a href="#" class="hover:text-white text-2xl dark:hover:text-blue-300">🔗</a>
+            <a href="#" class="hover:text-white text-2xl dark:hover:text-blue-300">🔗</a>
         </div>
     </footer>
-
+    <script src="theme-toggle.js"></script>
 </body>
 </html>
