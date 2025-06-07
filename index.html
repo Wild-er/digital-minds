@@ -13,6 +13,7 @@
         }
 
         .nucleus {
+            position: absolute; /* Keep position:absolute for .nucleus */
             top: 50%;
             left: 50%;
             transform: translate3d(-50%, -50%, 0px); /* Use translate3d for consistency */
@@ -26,63 +27,80 @@
 
         .electron {
             position: absolute;
-            top: 50%;
+            top: 50%; /* Centering point for transform origin */
             left: 50%;
-            width: 40px; /* Adjust size as needed */
+            width: 40px;
             height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transform-style: preserve-3d; /* Important for child elements if any, or if electron itself rotates in 3D */
+            transform-style: preserve-3d;
         }
 
-        /* Electron 1: Orbit properties - slight Z movement */
+        /* Orbit 1: Flat orbit on XY plane (around Z axis from viewer's perspective), slight Z offset */
         .electron1 { animation: orbit1 10s linear infinite; }
         @keyframes orbit1 {
-            0% { transform: translate3d(-50%, -50%, 0) rotateY(0deg) translateX(80px) rotateY(0deg) translateZ(10px); }
-            50% { transform: translate3d(-50%, -50%, 0) rotateY(180deg) translateX(80px) rotateY(-180deg) translateZ(-10px); }
-            100% { transform: translate3d(-50%, -50%, 0) rotateY(360deg) translateX(80px) rotateY(-360deg) translateZ(10px); }
+            0%   { transform: translate3d(-50%, -50%, 0) rotateZ(0deg)   translateX(90px) translateZ(5px)  rotateZ(0deg); }
+            100% { transform: translate3d(-50%, -50%, 0) rotateZ(360deg) translateX(90px) translateZ(5px)  rotateZ(-360deg); }
         }
 
-        /* Electron 2: Orbit properties - different plane/axis and Z */
-        .electron2 { animation: orbit2 12s linear infinite 0.5s; }
+        /* Orbit 2: Orbit on XZ plane (around Y axis), different Z offset */
+        .electron2 { animation: orbit2 11s linear infinite 0.5s; }
         @keyframes orbit2 {
-            0% { transform: translate3d(-50%, -50%, 0) rotateX(0deg) translateX(100px) rotateX(0deg) translateZ(20px); }
-            50% { transform: translate3d(-50%, -50%, 0) rotateX(180deg) translateX(100px) rotateX(-180deg) translateZ(-20px); }
-            100% { transform: translate3d(-50%, -50%, 0) rotateX(360deg) translateX(100px) rotateX(-360deg) translateZ(20px); }
+            0%   { transform: translate3d(-50%, -50%, 0) rotateY(0deg)   translateX(100px) translateZ(15px) rotateY(0deg); } /* Note: final rotateY needs to be Y for upright */
+            100% { transform: translate3d(-50%, -50%, 0) rotateY(360deg) translateX(100px) translateZ(15px) rotateY(-360deg); }
         }
 
-        /* Electron 3: Orbit properties - more Z movement */
-        .electron3 { animation: orbit3 8s linear infinite 1s; }
+        /* Orbit 3: Orbit on YZ plane (around X axis), variable Z */
+        .electron3 { animation: orbit3 9s linear infinite 1s; }
         @keyframes orbit3 {
-            0% { transform: translate3d(-50%, -50%, 0) rotateY(0deg) translateX(120px) rotateY(0deg) translateZ(30px) rotateX(20deg); }
-            50% { transform: translate3d(-50%, -50%, 0) rotateY(180deg) translateX(120px) rotateY(-180deg) translateZ(-30px) rotateX(20deg); }
-            100% { transform: translate3d(-50%, -50%, 0) rotateY(360deg) translateX(120px) rotateY(-360deg) translateZ(30px) rotateX(20deg); }
+            0%   { transform: translate3d(-50%, -50%, 0) rotateX(0deg)   translateX(110px) translateZ(25px) rotateX(0deg); }
+            50%  { transform: translate3d(-50%, -50%, 0) rotateX(180deg) translateX(110px) translateZ(-25px) rotateX(-180deg); }
+            100% { transform: translate3d(-50%, -50%, 0) rotateX(360deg) translateX(110px) translateZ(25px) rotateX(-360deg); }
         }
 
-       /* Electron 4: New orbit - different radius, speed, Z, and axis */
-       .electron4 { animation: orbit4 11s linear infinite 0.2s; }
-       @keyframes orbit4 {
-           0% { transform: translate3d(-50%, -50%, 0) rotateZ(0deg) translateY(90px) rotateZ(0deg) translateZ(-15px) rotateY(30deg); }
-           50% { transform: translate3d(-50%, -50%, 0) rotateZ(180deg) translateY(90px) rotateZ(-180deg) translateZ(15px) rotateY(30deg); }
-           100% { transform: translate3d(-50%, -50%, 0) rotateZ(360deg) translateY(90px) rotateZ(-360deg) translateZ(-15px) rotateY(30deg); }
-       }
+        /* Orbit 4: Orbit tilted 45deg around X, then orbiting around its new Y' */
+        .electron4 { animation: orbit4 12s linear infinite 0.2s; }
+        @keyframes orbit4 {
+            0%   { transform: translate3d(-50%, -50%, 0) rotateX(45deg) rotateY(0deg)   translateX(100px) translateZ(10px) rotateY(0deg); }
+            100% { transform: translate3d(-50%, -50%, 0) rotateX(45deg) rotateY(360deg) translateX(100px) translateZ(10px) rotateY(-360deg); }
+        }
 
-       /* Electron 5: New orbit */
-       .electron5 { animation: orbit5 9s linear infinite 0.7s; }
-       @keyframes orbit5 {
-           0% { transform: translate3d(-50%, -50%, 0) rotateX(45deg) rotateY(0deg) translateX(110px) rotateY(0deg) translateZ(25px); }
-           50% { transform: translate3d(-50%, -50%, 0) rotateX(45deg) rotateY(180deg) translateX(110px) rotateY(-180deg) translateZ(-25px); }
-           100% { transform: translate3d(-50%, -50%, 0) rotateX(45deg) rotateY(360deg) translateX(110px) rotateY(-360deg) translateZ(25px); }
-       }
+        /* Orbit 5: Orbit tilted 45deg around Y, then orbiting around its new X' */
+        .electron5 { animation: orbit5 10s linear infinite 0.7s; }
+        @keyframes orbit5 {
+            0%   { transform: translate3d(-50%, -50%, 0) rotateY(45deg) rotateX(0deg)   translateX(90px) translateZ(-10px) rotateX(0deg); }
+            100% { transform: translate3d(-50%, -50%, 0) rotateY(45deg) rotateX(360deg) translateX(90px) translateZ(-10px) rotateX(-360deg); }
+        }
 
-       /* Electron 6: New orbit - more tilted */
-       .electron6 { animation: orbit6 13s linear infinite 1.2s; }
-       @keyframes orbit6 {
-           0% { transform: translate3d(-50%, -50%, 0) rotateY(0deg) translateX(70px) rotateY(0deg) translateZ(0px) rotateX(-30deg) ; }
-           50% { transform: translate3d(-50%, -50%, 0) rotateY(180deg) translateX(70px) rotateY(-180deg) translateZ(40px) rotateX(-30deg); } /* Moves further in Z at midpoint */
-           100% { transform: translate3d(-50%, -50%, 0) rotateY(360deg) translateX(70px) rotateY(-360deg) translateZ(0px) rotateX(-30deg); }
-       }
+        /* Orbit 6: Orbit tilted -45deg around X (opposite of e4), then orbiting around Y', different Z path */
+        .electron6 { animation: orbit6 11s linear infinite 1.2s; }
+        @keyframes orbit6 {
+            0%   { transform: translate3d(-50%, -50%, 0) rotateX(-45deg) rotateY(0deg)   translateX(120px) translateZ(20px) rotateY(0deg); }
+            50%  { transform: translate3d(-50%, -50%, 0) rotateX(-45deg) rotateY(180deg) translateX(120px) translateZ(-20px) rotateY(-180deg); }
+            100% { transform: translate3d(-50%, -50%, 0) rotateX(-45deg) rotateY(360deg) translateX(120px) translateZ(20px) rotateY(-360deg); }
+        }
+        /* Ensure the animation CSS is within the main <style> tags in the head */
+        /* Also ensure any previous animation CSS for electrons is replaced by this */
+
+       /* CSS-driven Theme Icon Visibility */
+        /* Hide moon icon by default (in light mode) */
+        html:not(.dark) #theme-toggle-dark-icon {
+            display: none;
+        }
+        /* Hide sun icon when in dark mode */
+        html.dark #theme-toggle-light-icon {
+            display: none;
+        }
+        /* Ensure the one that should be visible is displayed as inline (or inline-block if needed) */
+        /* Sun icon visible by default (in light mode) */
+        html:not(.dark) #theme-toggle-light-icon {
+            display: inline; /* Or inline-block if layout requires */
+        }
+        /* Moon icon visible when in dark mode */
+        html.dark #theme-toggle-dark-icon {
+            display: inline; /* Or inline-block if layout requires */
+        }
    </style>
     <script>
         function scrollToSection(sectionId) {
@@ -105,8 +123,8 @@
 
                 <!-- Theme Toggle Button -->
                 <button id="theme-toggle" type="button" class="ml-4 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
-                    <span id="theme-toggle-dark-icon" class="hidden">🌙</span> <!-- Moon icon -->
-                    <span id="theme-toggle-light-icon" class="hidden">☀️</span> <!-- Sun icon -->
+                    <span id="theme-toggle-dark-icon">🌙</span> <!-- Moon icon, no 'hidden' -->
+                    <span id="theme-toggle-light-icon">☀️</span> <!-- Sun icon, no 'hidden' -->
                 </button>
             </div>
         </nav>

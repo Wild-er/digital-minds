@@ -6,6 +6,21 @@
     <title>Testimonials - Digital Minds Group</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* CSS-driven Theme Icon Visibility */
+        html:not(.dark) #theme-toggle-dark-icon {
+            display: none;
+        }
+        html.dark #theme-toggle-light-icon {
+            display: none;
+        }
+        html:not(.dark) #theme-toggle-light-icon {
+            display: inline;
+        }
+        html.dark #theme-toggle-dark-icon {
+            display: inline;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 text-gray-800 font-sans dark:bg-gray-900 dark:text-gray-200">
 
@@ -21,8 +36,8 @@
 
                 <!-- Theme Toggle Button -->
                 <button id="theme-toggle" type="button" class="ml-4 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
-                    <span id="theme-toggle-dark-icon" class="hidden">🌙</span> <!-- Moon icon -->
-                    <span id="theme-toggle-light-icon" class="hidden">☀️</span> <!-- Sun icon -->
+                    <span id="theme-toggle-dark-icon">🌙</span> <!-- Moon icon, no 'hidden' -->
+                    <span id="theme-toggle-light-icon">☀️</span> <!-- Sun icon, no 'hidden' -->
                 </button>
             </div>
         </nav>
