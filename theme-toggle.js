@@ -1,10 +1,24 @@
 // theme-toggle.js
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
     const themeToggleBtn = document.getElementById('theme-toggle');
     const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
     const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
-    // Function to apply the theme
+    // If any of these critical elements don't exist, log an error and don't proceed.
+    // This helps in debugging if IDs in HTML don't match.
+    if (!themeToggleBtn) {
+        console.error("Theme toggle button ('theme-toggle') not found!");
+        return;
+    }
+    if (!themeToggleDarkIcon) {
+        console.error("Theme toggle dark icon ('theme-toggle-dark-icon') not found!");
+        // We might still want the button to work, but icon switching will fail.
+        // Depending on desired robustness, we could return here or allow partial functionality.
+    }
+    if (!themeToggleLightIcon) {
+        console.error("Theme toggle light icon ('theme-toggle-light-icon') not found!");
+    }
+
     function applyTheme(theme) {
         if (theme === 'dark') {
             document.documentElement.classList.add('dark');
@@ -17,7 +31,6 @@
         }
     }
 
-    // Function to toggle theme
     function toggleTheme() {
         const isDarkMode = document.documentElement.classList.contains('dark');
         const newTheme = isDarkMode ? 'light' : 'dark';
@@ -25,9 +38,8 @@
         applyTheme(newTheme);
     }
 
-    // Check local storage for saved theme preference
+    // Initialize theme based on saved preference or OS setting
     const savedTheme = localStorage.getItem('theme');
-    // Check OS-level preference if no saved theme
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
     if (savedTheme) {
@@ -35,18 +47,17 @@
     } else if (prefersDark) {
         applyTheme('dark');
     } else {
-        applyTheme('light'); // Default to light if no preference
+        applyTheme('light'); // Default to light
     }
 
-    // Event listener for the toggle button
-    if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', toggleTheme);
-    }
+    // Attach event listener to the button
+    themeToggleBtn.addEventListener('click', toggleTheme);
 
-    // Listen for changes in OS preference (optional, but good for dynamic changes)
+    // Listen for changes in OS preference
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-        if (!localStorage.getItem('theme')) { // Only if user hasn't set a preference
+        // Only apply OS preference if the user hasn't manually set a theme
+        if (!localStorage.getItem('theme')) {
             applyTheme(event.matches ? 'dark' : 'light');
         }
     });
-})();
+});

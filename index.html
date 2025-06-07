@@ -7,65 +7,83 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        #learning-nexus-animation .relative { /* The main container for 3D space */
+            perspective: 800px; /* Adjust for more or less dramatic 3D effect */
+            transform-style: preserve-3d; /* Ensures children are positioned in 3D space */
+        }
+
         .nucleus {
-            /* Center the nucleus emoji */
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate3d(-50%, -50%, 0px); /* Use translate3d for consistency */
             animation: float 4s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
-            50% { transform: translate(-50%, -50%) translateY(-20px); }
+            0%, 100% { transform: translate3d(-50%, -50%, 0px) translateY(0px); }
+            50% { transform: translate3d(-50%, -50%, 0px) translateY(-20px); }
         }
 
         .electron {
-            /* Common styling for electrons */
             position: absolute;
-            /* Centering electrons initially if their direct parent is the .relative container */
             top: 50%;
             left: 50%;
-            transform-origin: center center; /* Set transform origin for rotation */
             width: 40px; /* Adjust size as needed */
-            height: 40px; /* Adjust size as needed */
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
+            transform-style: preserve-3d; /* Important for child elements if any, or if electron itself rotates in 3D */
         }
 
-        /* Electron 1: Orbit properties */
-        .electron1 {
-            animation: orbit1 10s linear infinite;
-        }
+        /* Electron 1: Orbit properties - slight Z movement */
+        .electron1 { animation: orbit1 10s linear infinite; }
         @keyframes orbit1 {
-            0% { transform: translate(-50%, -50%) rotate(0deg) translateX(80px) rotate(0deg); } /* Adjust 80px for orbit radius */
-            100% { transform: translate(-50%, -50%) rotate(360deg) translateX(80px) rotate(-360deg); }
+            0% { transform: translate3d(-50%, -50%, 0) rotateY(0deg) translateX(80px) rotateY(0deg) translateZ(10px); }
+            50% { transform: translate3d(-50%, -50%, 0) rotateY(180deg) translateX(80px) rotateY(-180deg) translateZ(-10px); }
+            100% { transform: translate3d(-50%, -50%, 0) rotateY(360deg) translateX(80px) rotateY(-360deg) translateZ(10px); }
         }
 
-        /* Electron 2: Orbit properties */
-        .electron2 {
-            animation: orbit2 12s linear infinite 0.5s; /* Different duration and delay */
-        }
+        /* Electron 2: Orbit properties - different plane/axis and Z */
+        .electron2 { animation: orbit2 12s linear infinite 0.5s; }
         @keyframes orbit2 {
-            0% { transform: translate(-50%, -50%) rotate(0deg) translateX(100px) rotate(0deg); } /* Adjust 100px for orbit radius */
-            100% { transform: translate(-50%, -50%) rotate(360deg) translateX(100px) rotate(-360deg); }
+            0% { transform: translate3d(-50%, -50%, 0) rotateX(0deg) translateX(100px) rotateX(0deg) translateZ(20px); }
+            50% { transform: translate3d(-50%, -50%, 0) rotateX(180deg) translateX(100px) rotateX(-180deg) translateZ(-20px); }
+            100% { transform: translate3d(-50%, -50%, 0) rotateX(360deg) translateX(100px) rotateX(-360deg) translateZ(20px); }
         }
 
-        /* Electron 3: Orbit properties */
-        .electron3 {
-            animation: orbit3 8s linear infinite 1s; /* Different duration and delay */
-        }
+        /* Electron 3: Orbit properties - more Z movement */
+        .electron3 { animation: orbit3 8s linear infinite 1s; }
         @keyframes orbit3 {
-            0% { transform: translate(-50%, -50%) rotate(0deg) translateX(120px) rotate(0deg); } /* Adjust 120px for orbit radius */
-            100% { transform: translate(-50%, -50%) rotate(360deg) translateX(120px) rotate(-360deg); }
+            0% { transform: translate3d(-50%, -50%, 0) rotateY(0deg) translateX(120px) rotateY(0deg) translateZ(30px) rotateX(20deg); }
+            50% { transform: translate3d(-50%, -50%, 0) rotateY(180deg) translateX(120px) rotateY(-180deg) translateZ(-30px) rotateX(20deg); }
+            100% { transform: translate3d(-50%, -50%, 0) rotateY(360deg) translateX(120px) rotateY(-360deg) translateZ(30px) rotateX(20deg); }
         }
 
-        /* Ensure the animation container clips if electrons go too wild, though orbit should keep them contained */
-        #learning-nexus-animation .relative {
-            /* overflow: hidden; /* Uncomment if needed, but might clip desired visual */
-        }
-    </style>
+       /* Electron 4: New orbit - different radius, speed, Z, and axis */
+       .electron4 { animation: orbit4 11s linear infinite 0.2s; }
+       @keyframes orbit4 {
+           0% { transform: translate3d(-50%, -50%, 0) rotateZ(0deg) translateY(90px) rotateZ(0deg) translateZ(-15px) rotateY(30deg); }
+           50% { transform: translate3d(-50%, -50%, 0) rotateZ(180deg) translateY(90px) rotateZ(-180deg) translateZ(15px) rotateY(30deg); }
+           100% { transform: translate3d(-50%, -50%, 0) rotateZ(360deg) translateY(90px) rotateZ(-360deg) translateZ(-15px) rotateY(30deg); }
+       }
+
+       /* Electron 5: New orbit */
+       .electron5 { animation: orbit5 9s linear infinite 0.7s; }
+       @keyframes orbit5 {
+           0% { transform: translate3d(-50%, -50%, 0) rotateX(45deg) rotateY(0deg) translateX(110px) rotateY(0deg) translateZ(25px); }
+           50% { transform: translate3d(-50%, -50%, 0) rotateX(45deg) rotateY(180deg) translateX(110px) rotateY(-180deg) translateZ(-25px); }
+           100% { transform: translate3d(-50%, -50%, 0) rotateX(45deg) rotateY(360deg) translateX(110px) rotateY(-360deg) translateZ(25px); }
+       }
+
+       /* Electron 6: New orbit - more tilted */
+       .electron6 { animation: orbit6 13s linear infinite 1.2s; }
+       @keyframes orbit6 {
+           0% { transform: translate3d(-50%, -50%, 0) rotateY(0deg) translateX(70px) rotateY(0deg) translateZ(0px) rotateX(-30deg) ; }
+           50% { transform: translate3d(-50%, -50%, 0) rotateY(180deg) translateX(70px) rotateY(-180deg) translateZ(40px) rotateX(-30deg); } /* Moves further in Z at midpoint */
+           100% { transform: translate3d(-50%, -50%, 0) rotateY(360deg) translateX(70px) rotateY(-360deg) translateZ(0px) rotateX(-30deg); }
+       }
+   </style>
     <script>
         function scrollToSection(sectionId) {
             document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
@@ -95,21 +113,32 @@
     </header>
 
     <!-- Hero Section -->
-        <section id="learning-nexus-animation" class="my-16 flex flex-col items-center justify-center text-center p-8 overflow-hidden">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-700 dark:text-gray-300 mb-2">Welcome to Your Gateway to Free Learning</h2>
-            <p class="text-gray-600 dark:text-gray-400 mb-12">Unlock your potential with curated access to the world's best free educational resources.</p>
-            <div class="relative w-64 h-64"> <!-- Animation container -->
-                <!-- Nucleus -->
-                <div class="nucleus absolute text-6xl md:text-7xl">⚛️</div>
-                <!-- Electrons -->
-                <div class="electron electron1 absolute text-2xl md:text-3xl">💡</div>
-                <div class="electron electron2 absolute text-2xl md:text-3xl">✨</div>
-                <div class="electron electron3 absolute text-2xl md:text-3xl">📚</div>
-            </div>
-        </section>
+    <section class="hero bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-center py-16 md:py-24 px-6 dark:from-blue-700 dark:to-indigo-800">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Welcome to Your Gateway to Free Learning</h1>
+        <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto dark:text-gray-300">Unlock your potential with curated access to the world's best free educational resources.</p>
+        <div class="text-6xl mb-8">📚✨</div>
+    </section>
 
     <!-- Main Content -->
     <main class="container mx-auto px-6 py-12">
+
+        <!-- CSS Animation Section -->
+        <section id="learning-nexus-animation" class="my-16 flex flex-col items-center justify-center text-center p-8 overflow-hidden">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-700 dark:text-gray-300 mb-2">The Learning Nexus</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-12">Exploring the core of knowledge.</p>
+            <div class="relative w-64 h-64"> <!-- Animation container -->
+                <!-- Nucleus -->
+                <div class="nucleus absolute text-6xl md:text-7xl">⚛️</div>
+                <!-- Existing Electrons -->
+                <div class="electron electron1 absolute text-2xl md:text-3xl">💡</div>
+                <div class="electron electron2 absolute text-2xl md:text-3xl">✨</div>
+                <div class="electron electron3 absolute text-2xl md:text-3xl">📚</div>
+                <!-- New Electrons -->
+                <div class="electron electron4 absolute text-2xl md:text-3xl">⚙️</div>
+                <div class="electron electron5 absolute text-2xl md:text-3xl">🧪</div>
+                <div class="electron electron6 absolute text-2xl md:text-3xl">🌠</div>
+            </div>
+        </section>
 
         <!-- Learning Platform Guide Section -->
         <section id="learning-platform-guide" class="mb-16">
